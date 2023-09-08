@@ -1,0 +1,39 @@
+.css-1wnsr1i {
+    border: none !important;
+    border-radius: 10px;
+    width: 40% !important;
+    text-align: center;
+}
+
+.icon-fb {
+    width: 301px;
+    height: 37px;
+    border-radius: 5px !important;
+    color: rgb(32, 32, 33) !important;
+    margin: 17px 0 10px 0 !important;
+}
+
+.color-svg-fb {
+    color: rgb(68, 138, 236);
+}
+
+.icon-gg {
+    width: 301px;
+    height: 37px;
+    border-radius: 5px !important;
+    color: rgb(32, 32, 33) !important;
+}
+
+.btn-login-fb-gg {
+    padding: 10px !important;
+}
+
+.navbar-bg {
+    background-color: white !important;
+}
+
+.inp-search {
+    border-radius: 40px !important;
+    border: none !important;
+    background-color: gray;
+}
