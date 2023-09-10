@@ -43,7 +43,10 @@ export default function Login({ setLogin }) {
 
 
     return (
-        <Formik  >
+        <Formik initialValues={{ username: '', password: '' }}
+                onSubmit={(values) => {
+                    handleLogin(values).then()
+                }} >
             <ThemeProvider theme={defaultTheme}>
                 <CssBaseline />
                 <Grid
@@ -79,17 +82,14 @@ export default function Login({ setLogin }) {
                             Login
                         </Typography>
                         <Box component="form" sx={{ mt: 1 }}
-                            initialValues={{ username: '', password: '' }}
-                            onSubmit={(values) => {
-                                handleLogin(values).then()
-                            }}>
+                            >
                             <TextField
                                 margin="normal"
                                 required
                                 id="username"
                                 label="Username"
                                 name="username"
-                                autoComplete="username"
+                                autoComplete="off"
                                 autoFocus
                                 sx={{ width: "300px" }}
                             />
@@ -100,7 +100,7 @@ export default function Login({ setLogin }) {
                                 label="Password"
                                 type="password"
                                 id="password"
-                                autoComplete="current-password"
+                                autoComplete="off"
                                 sx={{ width: "300px" }}
                             />
                              

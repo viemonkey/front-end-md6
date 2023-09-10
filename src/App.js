@@ -9,9 +9,10 @@ function App() {
   return (
     <div className="App">
         <Routes>
+            <Route path={'/login'} element={<Login></Login>}></Route>
+            <Route path={'/register'} element={<Register></Register>}></Route>
             <Route path={'/'} element={<Home></Home>}>
-                <Route path={'/login'} element={<Login></Login>}></Route>
-                <Route path={'/register'} element={<Register></Register>}></Route>
+
              </Route>
          </Routes>
         <ToastContainer theme={"colored"} position={"top-center"}/>

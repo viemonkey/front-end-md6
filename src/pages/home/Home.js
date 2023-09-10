@@ -1,5 +1,6 @@
 import Navbar from "../../components/navbar/Navbar";
 import SlideShow from "../../components/slideShow/slideShow";
+import ListHouse from "../../components/house/listHouse";
 
 
 export default function Home() {
@@ -7,6 +8,7 @@ export default function Home() {
         <div>
             <Navbar />
             <SlideShow/>
+            <ListHouse/>
         </div>
     )
 }

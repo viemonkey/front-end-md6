@@ -11,15 +11,27 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Formik } from "formik";
+import {useDispatch} from "react-redux";
+import {useNavigate} from "react-router-dom";
+import {register} from "../../services/userService";
 
 const defaultTheme = createTheme();
 
 export default function Register({ setLogin }) {
-    const changeLogin = () => {
-        setLogin(true)
+
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const handleRegister = async (values) =>{
+        // values.image = urlFile
+        let a =  await dispatch(register(values))
+        console.log(a.payload.data)
+        navigate("/login")
     }
     return (
-        <Formik >
+        <Formik initialValues={{ username: '', password: '' , telephone:''}}
+                onSubmit={(values) => {
+                    handleRegister(values)
+                }} >
             <ThemeProvider theme={defaultTheme}>
                 <CssBaseline />
                 <Grid
@@ -55,10 +67,7 @@ export default function Register({ setLogin }) {
                             Register
                         </Typography>
                         <Box component="form" sx={{ mt: 1 }}
-                            initialValues={{ username: '', password: '' }}
-                            onSubmit={(values) => {
-
-                            }}>
+                            >
                             <TextField
                                 margin="normal"
                                 required
@@ -86,7 +95,7 @@ export default function Register({ setLogin }) {
                                 label="Telephone"
                                 type="tel"
                                 id="telephone"
-                                autoComplete="tel"
+                                autoComplete="off"
                                 sx={{ width: "300px" }}
                             />
 
@@ -102,13 +111,13 @@ export default function Register({ setLogin }) {
                             >
                                 Register
                             </Button>
-                            <Grid container>
-                                <Grid item>
-                                    <Link variant="body2" onClick={changeLogin}>
-                                        {"Don't have an account? Register"}
-                                    </Link>
-                                </Grid>
-                            </Grid>
+                            {/*<Grid container>*/}
+                            {/*    <Grid item>*/}
+                            {/*        <Link variant="body2" onClick={changeLogin}>*/}
+                            {/*            {"Don't have an account? Register"}*/}
+                            {/*        </Link>*/}
+                            {/*    </Grid>*/}
+                            {/*</Grid>*/}
                         </Box>
                     </div>
                 </Box>

@@ -1,22 +1,112 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import './slideShow.css';
+
+
 
 export default function SlideShow() {
 
 
     return (
-        <div>
-            <h1><small>Fullscreen</small> Ken Burns effect <small>without javascript</small></h1>
-            {/* You can add more ".slideshow-image" elements, but remember to update the "$items" variable on SCSS */}
-            <div className="slideshow">
-                <div className="slideshow-image" style={{backgroundImage: 'url("https://source.unsplash.com/category/nature/1600x1400")'}} />
-                <div className="slideshow-image" style={{backgroundImage: 'url("https://source.unsplash.com/category/buildings/1600x1400")'}} />
-                <div className="slideshow-image" style={{backgroundImage: 'url("https://source.unsplash.com/category/food/1600x1400")'}} />
-                <div className="slideshow-image" style={{backgroundImage: 'url("https://source.unsplash.com/category/technology/1600x1400")'}} />
-
+        <section>
+            <div className="container">
+                <div className="carousel">
+                    <input type="radio" name="slides" defaultChecked="checked" id="slide-1" />
+                    <input type="radio" name="slides" id="slide-2" />
+                    <input type="radio" name="slides" id="slide-3" />
+                    <input type="radio" name="slides" id="slide-4" />
+                    <input type="radio" name="slides" id="slide-5" />
+                    <input type="radio" name="slides" id="slide-6" />
+                    <ul className="carousel__slides">
+                        <li className="carousel__slide">
+                            <figure>
+                                <div>
+                                    <img src="https://picsum.photos/id/1041/800/450" alt="" />
+                                </div>
+                                <figcaption>
+                                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                                    <span className="credit">Photo: Tim Marshall</span>
+                                </figcaption>
+                            </figure>
+                        </li>
+                        <li className="carousel__slide">
+                            <figure>
+                                <div>
+                                    <img src="https://picsum.photos/id/1043/800/450" alt="" />
+                                </div>
+                                <figcaption>
+                                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                                    <span className="credit">Photo: Christian Joudrey</span>
+                                </figcaption>
+                            </figure>
+                        </li>
+                        <li className="carousel__slide">
+                            <figure>
+                                <div>
+                                    <img src="https://picsum.photos/id/1044/800/450" alt="" />
+                                </div>
+                                <figcaption>
+                                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                                    <span className="credit">Photo: Steve Carter</span>
+                                </figcaption>
+                            </figure>
+                        </li>
+                        <li className="carousel__slide">
+                            <figure>
+                                <div>
+                                    <img src="https://picsum.photos/id/1045/800/450" alt="" />
+                                </div>
+                                <figcaption>
+                                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                                    <span className="credit">Photo: Aleksandra Boguslawska</span>
+                                </figcaption>
+                            </figure>
+                        </li>
+                        <li className="carousel__slide">
+                            <figure>
+                                <div>
+                                    <img src="https://picsum.photos/id/1049/800/450" alt="" />
+                                </div>
+                                <figcaption>
+                                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                                    <span className="credit">Photo: Rosan Harmens</span>
+                                </figcaption>
+                            </figure>
+                        </li>
+                        <li className="carousel__slide">
+                            <figure>
+                                <div>
+                                    <img src="https://picsum.photos/id/1052/800/450" alt="" />
+                                </div>
+                                <figcaption>
+                                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                                    <span className="credit">Photo: Annie Spratt</span>
+                                </figcaption>
+                            </figure>
+                        </li>
+                    </ul>
+                    <ul className="carousel__thumbnails">
+                        <li>
+                            <label htmlFor="slide-1"><img src="https://picsum.photos/id/1041/150/150" alt="" /></label>
+                        </li>
+                        <li>
+                            <label htmlFor="slide-2"><img src="https://picsum.photos/id/1043/150/150" alt="" /></label>
+                        </li>
+                        <li>
+                            <label htmlFor="slide-3"><img src="https://picsum.photos/id/1044/150/150" alt="" /></label>
+                        </li>
+                        <li>
+                            <label htmlFor="slide-4"><img src="https://picsum.photos/id/1045/150/150" alt="" /></label>
+                        </li>
+                        <li>
+                            <label htmlFor="slide-5"><img src="https://picsum.photos/id/1049/150/150" alt="" /></label>
+                        </li>
+                        <li>
+                            <label htmlFor="slide-6"><img src="https://picsum.photos/id/1052/150/150" alt="" /></label>
+                        </li>
+                    </ul>
+                </div>
             </div>
-
-        </div>
+        </section>
 
     );
 }

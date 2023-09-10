@@ -28,7 +28,7 @@ export default function Navbar() {
                                 aria-label="menu"
                                 sx={{ mr: 2 }}
                             >
-                                <img src="logo.png" style={{ width: "50px", height: "50px", borderRadius: "50%" }} alt="err img"/>
+                                <img src="logo-navbar.png" style={{ width: "150px", height: "60px", marginLeft:"30px"}} alt="err img"/>
                             </IconButton>
                         </Grid>
                         <Grid item xs={10} sx={{ marginTop: 1 }}>
