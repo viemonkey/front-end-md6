@@ -10,6 +10,10 @@ import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Formik } from "formik"
 import IconButton from '@mui/material/IconButton';
+import {toast} from "react-toastify";
+import {useDispatch} from "react-redux";
+import {login} from "../../services/userService";
+import {useNavigate} from "react-router-dom";
 
 const defaultTheme = createTheme();
 
@@ -17,9 +21,29 @@ export default function Login({ setLogin }) {
     const changeLogin = () => {
         setLogin(false);
     }
-   
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const handleLogin = async (values) => {
+        let a = await dispatch(login(values))
+
+        if (a.payload.data.message.token === "User is not exist") {
+            toast.error("Tài khoản không tồn tại ")
+            navigate("/login")
+        } else if (a.payload.data.message.token === "Password is wrong") {
+            toast.warning("Bạn nhập sai mật khẩu")
+            navigate("/login")
+        } else {
+            await dispatch(login(values))
+            toast.success("Đăng nhập thành công")
+            navigate("/")
+        }
+
+    }
+
+
     return (
-        <Formik >
+        <Formik  >
             <ThemeProvider theme={defaultTheme}>
                 <CssBaseline />
                 <Grid
@@ -57,7 +81,7 @@ export default function Login({ setLogin }) {
                         <Box component="form" sx={{ mt: 1 }}
                             initialValues={{ username: '', password: '' }}
                             onSubmit={(values) => {
-                                // handleLogin(values).then()
+                                handleLogin(values).then()
                             }}>
                             <TextField
                                 margin="normal"
