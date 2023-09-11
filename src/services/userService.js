@@ -13,11 +13,12 @@ export const login = createAsyncThunk(
 export const register = createAsyncThunk(
     'user/register',
     async (data) =>{
-        const res = await axios.post('http://localhost:5000/register', data);
+        const res = await axios.post('http://localhost:5000/user/register', data);
+        console.log(res);
         return res
-
     }
 )
+
 export const getUser = createAsyncThunk(
     'users/getUsers',
     async () =>{
