@@ -17,52 +17,40 @@ import {useNavigate} from "react-router-dom";
 
 const defaultTheme = createTheme();
 
-export default function Login({ setLogin }) {
+export default function Login({ setLogin, handleClose }) {
     const changeLogin = () => {
         setLogin(false);
     }
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const handleLogin = async (values) => {
-        let a = await dispatch(login(values))
-
-        if (a.payload.data.message.token === "User is not exist") {
-            toast.error("Tài khoản không tồn tại ")
-            navigate("/login")
-        } else if (a.payload.data.message.token === "Password is wrong") {
-            toast.warning("Bạn nhập sai mật khẩu")
-            navigate("/login")
-        } else {
-            await dispatch(login(values))
-            toast.success("Đăng nhập thành công")
-            navigate("/")
+    const handleLogin = async (event) => {
+        event.preventDefault();
+        const data = {
+            username: event.target.username.value,
+            password: event.target.password.value
         }
+        console.log(data);
+        let response = await dispatch(login(data))
 
+        if (response.payload.data.message.token === "User is not exist") {
+            toast.error("Tài khoản không tồn tại ")
+        } else if (response.payload.data.message.token === "Password is wrong") {
+            toast.warning("Bạn nhập sai mật khẩu")
+        } else {
+            await dispatch(login(data))
+            toast.success("Đăng nhập thành công")
+            handleClose()
+        }
     }
+    
 
 
     return (
-        <Formik initialValues={{ username: '', password: '' }}
-                onSubmit={(values) => {
-                    handleLogin(values).then()
-                }} >
+        <Formik >
             <ThemeProvider theme={defaultTheme}>
                 <CssBaseline />
-                <Grid
-                    item
-                    xs={false}
-                    sm={4}
-                    md={7}
-                    sx={{
-                        backgroundImage: 'url(https://source.unsplash.com/random?wallpapers)',
-                        backgroundRepeat: 'no-repeat',
-                        backgroundColor: (t) =>
-                            t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
-                        backgroundSize: 'cover',
-                        backgroundPosition: 'center',
-                    }}
-                />
+                
                 <Box
 
                     className="form-login"
@@ -82,6 +70,10 @@ export default function Login({ setLogin }) {
                             Login
                         </Typography>
                         <Box component="form" sx={{ mt: 1 }}
+                            initialValues={{ username: "", password: "" }}
+                            onSubmit={(values) =>{
+                                handleLogin(values)
+                            }}
                             >
                             <TextField
                                 margin="normal"
@@ -136,7 +128,7 @@ export default function Login({ setLogin }) {
                                     </Link>
                                 </Grid>
                             </Grid>
-                        </Box>
+                        </Box>f
                     </div>
                 </Box>
             </ThemeProvider>
