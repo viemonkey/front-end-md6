@@ -4,7 +4,7 @@ import axios from "axios";
 export const login = createAsyncThunk(
     'user/login',
     async (data) =>{
-        const res = await axios.post('http://localhost:5000/user/login', data)
+        const res = await axios.post('http://localhost:5000/login', data)
         return res
 
     }
@@ -13,7 +13,7 @@ export const login = createAsyncThunk(
 export const register = createAsyncThunk(
     'user/register',
     async (data) =>{
-        const res = await axios.post('http://localhost:5000/user/register', data);
+        const res = await axios.post('http://localhost:5000/register', data);
         console.log(res);
         return res
     }

@@ -4,6 +4,9 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { TextField } from '@mui/material';
+import { useEffect, useState } from "react";
+import customAxios from "../../services/api";
+import { useNavigate, useParams } from "react-router-dom";
 
 const style = {
     position: 'absolute',
@@ -26,6 +29,51 @@ const style = {
 
 export default function MyAccount(props) {
     const handleClose = () => props.setOpenMyAccount(false);
+    const user = JSON.parse(localStorage.getItem("user"))
+    const id = user.message.token.idUser;
+    const navigate = useNavigate();
+
+    const [currentPassword, setCurrentPassword] = useState("");
+    const [newPassword, setNewPassword] = useState("");
+    const [confirmNewPassword, setConfirmNewPassword] = useState("");
+    const [errorMessage, setErrorMessage] = useState("");
+    const [currentUser, setCurrentUser] = useState({});
+    useEffect(() => {
+        customAxios(`/users/?id=${id}`).then((res) => {
+            setCurrentUser(res.data)
+            // Lấy dữ liệu người dùng (chẳng hạn, thông tin về mật khẩu hiện tại) từ API
+        })
+    }, [])
+
+    const handlePasswordChange = () => {
+        console.log(currentPassword)
+        // Kiểm tra xem mật khẩu hiện tại có khớp với mật khẩu đã lưu hay không
+        if (currentPassword !== currentPassword) {
+            setErrorMessage("Mật khẩu hiện tại không đúng.");
+            return;
+        }
+
+        // Kiểm tra xem mật khẩu mới và xác nhận mật khẩu mới có khớp nhau hay không
+        if (newPassword !== confirmNewPassword) {
+            setErrorMessage("Mật khẩu mới và xác nhận mật khẩu mới không khớp.");
+            return;
+        }
+
+        // Gửi yêu cầu PUT đến API để cập nhật mật khẩu
+        const updatedUserData = {
+            ...currentUser,
+            password: newPassword
+        };
+
+        customAxios.put(`/users/${id}`, updatedUserData).then(() => {
+            alert("Đã đổi mật khẩu thành công.");
+            navigate('/');
+        }).catch((error) => {
+            console.error(error);
+            setErrorMessage("Có lỗi xảy ra khi đổi mật khẩu. Vui lòng thử lại sau.");
+        });
+    }
+
     return (
         <div>
             <Modal
@@ -38,10 +86,45 @@ export default function MyAccount(props) {
                     <Typography variant="h4" component="h2" sx={{ mb: 2 }}>
                         Đổi mật khẩu
                     </Typography>
-                    <TextField id="outlined-basic" label="Mật khẩu hiện tại" variant="outlined" sx={{ mb: 2, width: "100%" }} />
-                    <TextField id="outlined-basic" label="Mật khẩu mới" variant="outlined" sx={{ mb: 2, width: "100%" }} />
-                    <TextField id="outlined-basic" label="Nhập lại mật khẩu" variant="outlined" sx={{ mb: 2, width: "100%" }} />
-                    <Button variant="outlined" sx={{ width: "100%" }}>Đổi mật khẩu</Button>
+                    <TextField
+                        id="currentPassword"
+                        label="Mật khẩu hiện tại"
+                        type="password"
+                        variant="outlined"
+                        sx={{ mb: 2, width: "100%" }}
+                        value={currentPassword}
+                        onChange={(e) => setCurrentPassword(e.target.value)}
+                    />
+                    <TextField
+                        id="newPassword"
+                        label="Mật khẩu mới"
+                        type="password"
+                        variant="outlined"
+                        sx={{ mb: 2, width: "100%" }}
+                        value={newPassword}
+                        onChange={(e) => setNewPassword(e.target.value)}
+                    />
+                    <TextField
+                        id="confirmNewPassword"
+                        label="Nhập lại mật khẩu mới"
+                        type="password"
+                        variant="outlined"
+                        sx={{ mb: 2, width: "100%" }}
+                        value={confirmNewPassword}
+                        onChange={(e) => setConfirmNewPassword(e.target.value)}
+                    />
+                    {errorMessage && (
+                        <div style={{ color: "red", fontSize: "13px", marginBottom: "10px" }}>
+                            {errorMessage}
+                        </div>
+                    )}
+                    <Button
+                        variant="outlined"
+                        sx={{ width: "100%" }}
+                        onClick={handlePasswordChange}
+                    >
+                        Đổi mật khẩu
+                    </Button>
                 </Box>
             </Modal>
         </div>
