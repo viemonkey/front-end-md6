@@ -12,9 +12,28 @@ import "../../style.css"
 
 export default function Navbar() {
     const [open, setOpen] = React.useState(false);
+    const [loggedIn, setLoggedIn] = React.useState(false); // State để theo dõi trạng thái đăng nhập
+
     const handleOpen = () => setOpen(true);
+
+    const user = JSON.parse(localStorage.getItem('user')) || null;
+    const token = user && user.message && user.message.token;
+    const username = token ? token.username : null;
+    const isLoggedIn = !!token && !!username;
+
+    React.useEffect(() => {
+        console.log(user)
+        // Kiểm tra nếu có token và chưa đăng nhập
+        if (user && !loggedIn) {
+            // Làm bất kỳ việc xác minh token nào ở đây (gửi yêu cầu đến máy chủ hoặc kiểm tra hợp lệ)
+
+            // Nếu xác minh thành công, đặt loggedIn thành true
+            setLoggedIn(true);
+        }
+    }, []);
+
     return (
-        <Box >
+        <Box>
 
             <AppBar position="static" className='navbar-bg'>
 
@@ -28,9 +47,11 @@ export default function Navbar() {
                                 aria-label="menu"
                                 sx={{ mr: 2 }}
                             >
-                                <img src="logo-navbar.png" style={{ width: "150px", height: "60px", marginLeft:"30px"}} alt="err img"/>
+                                <img src="logo-navbar.png" style={{ width: "150px", height: "60px", marginLeft: "30px" }} alt="err img" />
+
                             </IconButton>
                         </Grid>
+
                         <Grid item xs={10} sx={{ marginTop: 1 }}>
                             <TextField
                                 sx={{
@@ -51,12 +72,25 @@ export default function Navbar() {
                             />
                         </Grid>
                         <Grid item xs={1}>
-                            <Button color="inherit" onClick={handleOpen}><AccountCircleIcon sx={{ color: "black", fontSize: 40, margin: "10px 0 0 0" }} /></Button>
+                            {isLoggedIn ? (
+                                // Nếu đã đăng nhập, hiển thị tên người dùng
+                                <div style={{ background: "red", width: "50px" }}>
+                                    <h1>{username}</h1>
+                                </div>
+                            ) : (
+                                // Nếu chưa đăng nhập, hiển thị button "Đăng nhập"
+                                <Button color="inherit" onClick={handleOpen}>
+                                    <AccountCircleIcon
+                                        sx={{ color: "black", fontSize: 40, margin: "10px 0 0 0" }}
+                                    />
+                                </Button>
+                            )}
+
                         </Grid>
                     </Grid>
                 </Toolbar>
             </AppBar>
             <BasicModal open={open} setOpen={setOpen} />
-        </Box >
+        </Box>
     );
 }

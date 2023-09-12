@@ -4,6 +4,7 @@ import {ToastContainer} from "react-toastify";
 import {Route, Routes} from "react-router-dom";
 import Login from "./pages/users/login";
 import Register from "./pages/users/register";
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (
