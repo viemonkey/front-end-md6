@@ -30,7 +30,7 @@ export default function BasicModal(props) {
                 aria-describedby="modal-modal-description"
             >
                 <Box sx={style}>
-                    {login ? <Login setLogin={setLogin} /> : <Register setLogin={(e) => setLogin(e)} />}
+                    {login ? <Login setLogin={setLogin} handleClose={handleClose}/> : <Register setLogin={(e) => setLogin(e)} />}
                 </Box>
             </Modal>
         </div>
