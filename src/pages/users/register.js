@@ -11,8 +11,10 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { register } from "../../services/userService";
+import MenuItem from '@mui/material/MenuItem';
+import { Menu } from '@mui/material';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
 const defaultTheme = createTheme();
 
@@ -20,68 +22,70 @@ export default function Register({ setLogin }) {
     const [username, setUsername] = React.useState("")
     const [password, setPassword] = React.useState("")
     const [telephone, setTelephone] = React.useState("")
-    const [role, setRole] = React.useState("")
-    
+    const [role, setRole] = React.useState("Người dùng")
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    const [confirmPassword, setConfirmPassword] = React.useState("");
+    const [isError, setIsError] = React.useState("");
 
     const changeLogin = () => {
         setLogin(true)
     }
+    const checkValidation=(value) =>{
+        setConfirmPassword(value)
+        if (password !== value ){
+            setIsError("Confirm Password should be match witch password")
+        }else if(password === value) {
+            setIsError("Đã trùng khớp")
+        }
+
+    }
+
+    const handleStatusClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleStatusClose = (newRole) => {
+        setAnchorEl(null);
+        if (newRole) {
+            setRole(newRole);
+        }
+    };
 
     const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const handleRegister = async (values) => {
-        // values.image = urlFile
-        // let a = await dispatch(register(values))
-        // console.log(a.payload.data)
-        // navigate("/login")
-        let userData = {username, password, telephone, role}
+    const handleRegister = async () => {
+        let userData = { username, password,confirmPassword, telephone, role }
         console.log(userData);
         await dispatch(register(userData));
 
     }
     return (
-
         <ThemeProvider theme={defaultTheme}>
-            <CssBaseline />
-            <Grid
-                item
-                xs={false}
-                sm={4}
-                md={7}
-                sx={{
-                    backgroundImage: 'url(https://source.unsplash.com/random?wallpapers)',
-                    backgroundRepeat: 'no-repeat',
-                    backgroundColor: (t) =>
-                        t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                }}
-            />
             <Box
-
                 className="form-register"
-                sx={{
-                    my: 8,
-                    mx: 4,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                }}
+        
             >
                 <div className="form-register-user">
                     <Avatar sx={{ m: 1, width: "50px", height: "50px", margin: "auto" }}>
-                        <img src="logo.png" style={{ width: "50px", height: "50px", borderRadius: "50%" }} />
+                        <img src="logo.png" style={{ width: "50px", height: "50px", borderRadius: "50%" }} alt="err" />
                     </Avatar>
                     <Typography component="h1" variant="h5">
-                        Register
+                        Đăng ký
                     </Typography>
-                    <Box component="form" sx={{ mt: 1 }}
+                    <Box component="form"
+                         sx={{
+                             mt: 1,
+                             my: 0,
+                             mx: 0,
+                             display: 'flex',
+                             flexDirection: 'column',
+                             alignItems: 'center',
+                         }}
                     >
                         <TextField
                             margin="normal"
                             required
                             id="username"
-                            label="Username"
+                            label="Tài khoản"
                             name="username"
                             autoComplete="username"
                             autoFocus
@@ -95,7 +99,7 @@ export default function Register({ setLogin }) {
                             margin="normal"
                             required
                             name="password"
-                            label="Password"
+                            label="Mật khẩu"
                             type="password"
                             id="password"
                             autoComplete="current-password"
@@ -105,11 +109,30 @@ export default function Register({ setLogin }) {
                                 setPassword(e.target.value)
                             }}
                         />
+
+                        <TextField
+                            margin="normal"
+                            required
+                            name="confirmPassword"
+                            type="password"
+
+                            label="Xác nhận mật khẩu"
+                            id="confirmPassword"
+                            autoComplete="off"
+                            sx={{ width: "300px" }}
+                            value = {confirmPassword}
+                            onChange={(e) =>
+                                checkValidation(e.target.value)
+                            }
+                        />
+                        <div style={{color:"red", fontSize:"13px"}}>
+                            {isError}
+                        </div>
                         <TextField
                             margin="normal"
                             required
                             name="telephone"
-                            label="Telephone"
+                            label="Số điện thoại"
                             type="tel"
                             id="telephone"
                             autoComplete="off"
@@ -118,23 +141,24 @@ export default function Register({ setLogin }) {
                             onChange={(e) => {
                                 setTelephone(e.target.value)
                             }}
-
                         />
-                        <TextField
-                            margin="normal"
-                            required
-                            name="role"
-                            label="Role"
-                            id="role"
-                            autoComplete="off"
-                            sx={{ width: "300px" }}
-                            value={role}
-                            onChange={(e) => {
-                                setRole(e.target.value)
-                            }}
+                        <Button
+                            variant="contained"
+                            style={{ backgroundColor: 'white', color: 'black', margin: "10px 0 0 0", width: "300px" }}
+                            onClick={handleStatusClick}
+                            endIcon={<ArrowDropDownIcon />}
+                        >
+                            Vai trò: {role}
+                        </Button>
+                        <Menu
+                            anchorEl={anchorEl}
+                            open={Boolean(anchorEl)}
+                            onClose={() => handleStatusClose(null)}
+                        >
+                            <MenuItem onClick={() => handleStatusClose('Người dùng')}>Người dùng</MenuItem>
+                            <MenuItem onClick={() => handleStatusClose('Người cho thuê')}>Người cho thuê</MenuItem>
+                        </Menu>
 
-                        />
-                        
 
                         <FormControlLabel
                             control={<Checkbox value="remember" color="primary" />}
@@ -147,19 +171,14 @@ export default function Register({ setLogin }) {
                             sx={{ mt: 3, mb: 2, width: "300px" }}
                             onClick={handleRegister}
                         >
-                            Register
+                            Đăng ký
                         </Button>
-                        <Grid container>
-                            <Grid item>
-                                <Link variant="body2" onClick={changeLogin}>
-                                    {"Do you already have an account? Login"}
-                                </Link>
-                            </Grid>
-                        </Grid>
+                        <Link variant="body2" onClick={changeLogin}>
+                            {"Bạn đã có tài khoản? Đăng nhập"}
+                        </Link>
                     </Box>
                 </div>
             </Box>
         </ThemeProvider>
     );
 }
-

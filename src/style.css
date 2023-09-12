@@ -34,6 +34,6 @@
 
 .inp-search {
     border-radius: 40px !important;
-    border: none !important;
-    background-color: gray;
+    border: 1px solid black !important;
+    background-color: white;
 }
