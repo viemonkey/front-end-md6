@@ -1,7 +1,6 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import axios from "axios";
 
-
 export const login = createAsyncThunk(
     'user/login',
     async (data) =>{
@@ -10,6 +9,7 @@ export const login = createAsyncThunk(
 
     }
 )
+
 export const register = createAsyncThunk(
     'user/register',
     async (data) =>{

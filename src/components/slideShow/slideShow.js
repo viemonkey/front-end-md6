@@ -4,8 +4,6 @@ import './slideShow.css';
 
 
 export default function SlideShow() {
-
-
     return (
         <section>
             <div className="container">
