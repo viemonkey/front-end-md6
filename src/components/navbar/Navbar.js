@@ -12,10 +12,13 @@ import "../../style.css";
 import MyAccount from '../../pages/myAcount/MyAccount';
 import {useNavigate} from "react-router-dom";
 import {toast} from "react-toastify";
+import Profile from "../../pages/proFile/Profile";
 
 export default function Navbar() {
     const [open, setOpen] = React.useState(false);
     const [loggedIn, setLoggedIn] = React.useState(false); // State để theo dõi trạng thái đăng nhập
+    const [openProfile, setOpenProfile] = React.useState()
+    const handleOpenProfile = () => setOpenProfile(true)
 
     const handleOpen = () => setOpen(true);
 
@@ -110,7 +113,7 @@ export default function Navbar() {
                                             'aria-labelledby': 'basic-button',
                                         }}
                                     >
-                                        <MenuItem>Profile</MenuItem>
+                                        <MenuItem onClick={handleOpenProfile}>Profile</MenuItem>
 
                                         <MenuItem onClick={handleOpenMyAccount}>My account</MenuItem>
 
@@ -132,6 +135,7 @@ export default function Navbar() {
                     </Grid>
                 </Toolbar>
             </AppBar>
+            <Profile openProfile={openProfile} setOpenProfile={setOpenProfile} />
             <MyAccount openMyAccount={openMyAccount} setOpenMyAccount={setOpenMyAccount} />
             <BasicModal open={open} setOpen={setOpen} />
         </Box>

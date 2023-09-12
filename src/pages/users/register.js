@@ -55,11 +55,12 @@ export default function Register({ setLogin }) {
 
     const dispatch = useDispatch();
     const navigate = useNavigate()
+
     const handleRegister = async () => {
         let userData = { username, password,confirmPassword, telephone, role }
         console.log(userData);
         await dispatch(register(userData));
-        navigate('/')
+
     }
     return (
         <ThemeProvider theme={defaultTheme}>
