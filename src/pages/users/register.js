@@ -15,6 +15,7 @@ import { register } from "../../services/userService";
 import MenuItem from '@mui/material/MenuItem';
 import { Menu } from '@mui/material';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import {useNavigate} from "react-router-dom";
 
 const defaultTheme = createTheme();
 
@@ -26,6 +27,7 @@ export default function Register({ setLogin }) {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [confirmPassword, setConfirmPassword] = React.useState("");
     const [isError, setIsError] = React.useState("");
+
 
     const changeLogin = () => {
         setLogin(true)
@@ -52,11 +54,12 @@ export default function Register({ setLogin }) {
     };
 
     const dispatch = useDispatch();
+    const navigate = useNavigate()
     const handleRegister = async () => {
         let userData = { username, password,confirmPassword, telephone, role }
         console.log(userData);
         await dispatch(register(userData));
-
+        navigate('/')
     }
     return (
         <ThemeProvider theme={defaultTheme}>
@@ -170,6 +173,7 @@ export default function Register({ setLogin }) {
                             variant="contained"
                             sx={{ mt: 3, mb: 2, width: "300px" }}
                             onClick={handleRegister}
+
                         >
                             Đăng ký
                         </Button>

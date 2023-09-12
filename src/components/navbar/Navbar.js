@@ -10,6 +10,8 @@ import { Grid, InputAdornment, Menu, MenuItem, TextField } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import "../../style.css";
 import MyAccount from '../../pages/myAcount/MyAccount';
+import {useNavigate} from "react-router-dom";
+import {toast} from "react-toastify";
 
 export default function Navbar() {
     const [open, setOpen] = React.useState(false);
@@ -20,6 +22,7 @@ export default function Navbar() {
     const [openMyAccount, setOpenMyAccount] = React.useState(false)
 
     const handleOpenMyAccount = () => setOpenMyAccount(true)
+    const navigate = useNavigate()
 
     const user = JSON.parse(localStorage.getItem('user')) || null;
     const token = user && user.message && user.message.token;
@@ -33,6 +36,7 @@ export default function Navbar() {
     const handleClose = () => {
         setAnchorEl(null);
     };
+
 
     React.useEffect(() => {
         console.log(user)
@@ -110,7 +114,10 @@ export default function Navbar() {
 
                                         <MenuItem onClick={handleOpenMyAccount}>My account</MenuItem>
 
-                                        <MenuItem>Logout</MenuItem>
+                                        <MenuItem onClick={() =>{
+                                            localStorage.clear()
+                                            toast.success('dang xuat thanh cong')
+                                        }}>Logout</MenuItem>
                                     </Menu>
                                 </div>
                             ) : (
