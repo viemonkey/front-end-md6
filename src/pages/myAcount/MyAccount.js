@@ -30,7 +30,7 @@ const style = {
 export default function MyAccount(props) {
     const handleClose = () => props.setOpenMyAccount(false);
     const user = JSON.parse(localStorage.getItem("user"))
-    const id = user.message.token.idUser;
+    // const id = user.message.token.idUser;
     const navigate = useNavigate();
 
     const [currentPassword, setCurrentPassword] = useState("");
@@ -39,11 +39,21 @@ export default function MyAccount(props) {
     const [errorMessage, setErrorMessage] = useState("");
     const [currentUser, setCurrentUser] = useState({});
     useEffect(() => {
+        if (!user || !user.message || !user.message.token || !user.message.token.idUser) {
+            navigate('/');
+            return;
+        }
+
+        const id = user.message.token.idUser;
+
         customAxios(`/users/?id=${id}`).then((res) => {
-            setCurrentUser(res.data)
+            setCurrentUser(res.data);
             // Lấy dữ liệu người dùng (chẳng hạn, thông tin về mật khẩu hiện tại) từ API
-        })
-    }, [])
+        }).catch((error) => {
+            console.error(error);
+            // Handle error when unable to fetch user data
+        });
+    }, [user, navigate]);
 
     const handlePasswordChange = () => {
         console.log(currentPassword)
@@ -65,7 +75,7 @@ export default function MyAccount(props) {
             password: newPassword
         };
 
-        customAxios.put(`/users/${id}`, updatedUserData).then(() => {
+        customAxios.put(`/users/${currentUser.id}`, updatedUserData).then(() => {
             alert("Đã đổi mật khẩu thành công.");
             navigate('/');
         }).catch((error) => {
