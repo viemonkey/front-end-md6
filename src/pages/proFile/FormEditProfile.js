@@ -72,9 +72,9 @@ export default function FormEditProfile() {
                     sx={{ mb: 2, width: "100%" }}
                     name="username"
                     value={profile.username || ""}
-                    onChange={(e) =>
-                        setProfile({...profile, username: e.target.value})
-                    }
+                    // onChange={(e) =>
+                    //     setProfile({...profile, username: e.target.value})
+                    // }
                 />
 
                 {/*<TextField*/}

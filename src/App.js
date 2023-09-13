@@ -6,6 +6,9 @@ import 'react-toastify/dist/ReactToastify.css';
 import MyAccount from './pages/myAcount/MyAccount';
 import User from "./pages/home/User";
 import Host from "./pages/home/Host";
+import Admin from "./pages/home/Admin";
+import DetailUser from "./pages/admin/detail/DetailUser";
+import DetailHost from "./pages/admin/detail/DetailHost";
 
 function App() {
   return (
@@ -15,6 +18,9 @@ function App() {
                 <Route path={'/user'} element={<User/>}></Route>
                 <Route path={'/host'} element={<Host/>}></Route>
             </Route>
+            <Route path={'/detail'} element={<Admin/>}></Route>
+            <Route path={'/detail-user'} element={<DetailUser/>}></Route>
+            <Route path={'/detail-host'} element={<DetailHost/>}></Route>
          </Routes>
         <ToastContainer theme={"colored"} position={"top-center"}/>
 

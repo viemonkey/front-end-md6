@@ -22,7 +22,7 @@ export const register = createAsyncThunk(
 export const getUser = createAsyncThunk(
     'users/getUsers',
     async () =>{
-        const res  = await axios.get('http://localhost:5000')
+        const res  = await axios.get('http://localhost:5000/users')
         return res
     }
 )

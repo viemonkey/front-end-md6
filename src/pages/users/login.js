@@ -68,8 +68,9 @@ export default function Login({ setLogin, handleClose }) {
                 navigate('/user')
             }else if (user.role === 'Người cho thuê') {
                 navigate("/host")
-            }
-            console.log(user.role)
+            }else if (user.role === 'Admin')
+                navigate("/detail")
+
 
         } catch (error) {
             // Xử lý lỗi từ API hoặc một lỗi khác nếu cần
