@@ -36,7 +36,7 @@ export default function EditProfile(props) {
                 aria-describedby="modal-modal-description"
             >
                 <Box sx={style}>
-                    <FormEditProfile />
+                    <FormEditProfile handleClose={handleClose} />
                 </Box>
             </Modal>
         </div>

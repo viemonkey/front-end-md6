@@ -4,6 +4,7 @@ import "../../../style.css";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useState} from "react";
 import {getUser} from "../../../services/userService";
+import Navbar from "../../../components/navbar/Navbar";
 
 export default function ListUser() {
     const dispatch = useDispatch()
@@ -26,6 +27,11 @@ export default function ListUser() {
     return (
         <>
             <div>
+                <Navbar></Navbar>
+                <Link to={"/list/host"}>
+                    <Button sx={{ position: "absolute", top: "20", left: "10%" }}>Danh sách chủ nhà</Button>
+                </Link>
+                <h3 style={{ marginTop: "20px" }}>Danh sách người dùng</h3>
 
 
             <div className="list-frame">
@@ -38,7 +44,7 @@ export default function ListUser() {
                         <th scope="col">Trạng thái</th>
                         <th scope="col">Hành động</th>
                         <th scope="col">
-                            <Link to={"/detail-user"}>
+                            <Link to={"/detail/user"}>
                                 <button class="btn btn-light btn-text" type="button" aria-expanded="false" >
                                     Chi tiết
                                 </button>
@@ -85,25 +91,7 @@ export default function ListUser() {
                         }
                     })}
                 </table>
-                <nav aria-label="Page navigation example">
-                    <ul class="pagination">
-                        <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Previous">
-                                <span aria-hidden="true">&laquo;</span>
-                                <span class="sr-only">Previous</span>
-                            </a>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
-                                <span class="sr-only">Next</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
+
             </div>
 
             </div>

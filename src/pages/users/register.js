@@ -16,6 +16,7 @@ import MenuItem from '@mui/material/MenuItem';
 import { Menu } from '@mui/material';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import {useNavigate} from "react-router-dom";
+import {toast} from "react-toastify";
 
 const defaultTheme = createTheme();
 
@@ -60,6 +61,10 @@ export default function Register({ setLogin }) {
         let userData = { username, password,confirmPassword, telephone, role }
         console.log(userData);
         await dispatch(register(userData));
+        toast.success("Đăng ký thành công", { autoClose: 1500 })
+        setTimeout(() => {
+            changeLogin();
+        }, 2000);
 
     }
     return (

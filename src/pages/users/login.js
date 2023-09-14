@@ -69,7 +69,7 @@ export default function Login({ setLogin, handleClose }) {
             }else if (user.role === 'Người cho thuê') {
                 navigate("/host")
             }else if (user.role === 'Admin')
-                navigate("/detail")
+                navigate("/admin")
 
 
         } catch (error) {

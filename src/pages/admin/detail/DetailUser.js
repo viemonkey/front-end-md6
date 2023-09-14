@@ -5,6 +5,7 @@ import {getUser} from "../../../services/userService";
 import Button from "@mui/material/Button";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import {Link} from "react-router-dom";
+import Navbar from "../../../components/navbar/Navbar";
 
 export default function DetailUser() {
     const dispatch = useDispatch()
@@ -25,6 +26,9 @@ export default function DetailUser() {
     }, [dispatch])
     return (
         <div>
+            <Navbar/>
+            <h3 style={{ marginTop: "20px" }}>Thông tin người dùng</h3>
+
             <div className="list-frame">
                 <table class="table">
 
@@ -76,7 +80,7 @@ export default function DetailUser() {
                         </li>
                     </ul>
                 </nav>
-                <Link to={"/detail"}>
+                <Link to={"/admin"}>
                     <Button variant="contained" startIcon={<KeyboardBackspaceIcon />}>Quay lại</Button>
                 </Link>
             </div>

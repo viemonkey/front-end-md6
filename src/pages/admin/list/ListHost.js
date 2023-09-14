@@ -3,6 +3,8 @@ import "../../../style.css"
 import {useDispatch} from "react-redux";
 import {useEffect, useState} from "react";
 import {getUser} from "../../../services/userService";
+import Button from "@mui/material/Button";
+import Navbar from "../../../components/navbar/Navbar";
 
 export default function ListHost() {
     const dispatch = useDispatch()
@@ -23,6 +25,11 @@ export default function ListHost() {
     }, [dispatch])
     return (
         <div>
+            <Navbar/>
+            <Link to={"/list/user"}>
+                <Button sx={{ position: "absolute", top: "20", left: "10%" }} >Danh sách người dùng</Button>
+            </Link>
+            <h3 style={{ marginTop: "20px" }}>Danh sách chủ nhà</h3>
             <div className="list-frame">
                 <table class="table">
                     <thead>
@@ -35,7 +42,7 @@ export default function ListHost() {
                         <th scope="col">Trạng thái</th>
                         <th scope="col">Hành động</th>
                         <th scope="col">
-                            <Link to={"/detail-host"}>
+                            <Link to={"/detail/host"}>
                                 <button class="btn btn-light btn-text" type="button" aria-expanded="false">
                                     Chi tiết
                                 </button>
@@ -64,7 +71,9 @@ export default function ListHost() {
                                             <a class="dropdown-item" href="#">Đang hoạt động</a>
                                             <a class="dropdown-item" href="#">Khoá</a>
                                         </div>
+
                                     </div>
+
                                 </td>
                                 <td>
                                     <div class="dropdown">
@@ -80,31 +89,15 @@ export default function ListHost() {
                                         </div>
                                     </div>
                                 </td>
+
                             </tr>
                             </tbody>
+
                             )
                         }
                     })}
                 </table>
-                <nav aria-label="Page navigation example">
-                    <ul class="pagination">
-                        <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Previous">
-                                <span aria-hidden="true">&laquo;</span>
-                                <span class="sr-only">Previous</span>
-                            </a>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
-                                <span class="sr-only">Next</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
+
             </div>
         </div>
     )

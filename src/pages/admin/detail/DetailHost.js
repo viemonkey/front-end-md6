@@ -5,6 +5,7 @@ import {getUser} from "../../../services/userService";
 import {Link} from "react-router-dom";
 import Button from "@mui/material/Button";
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
+import Navbar from "../../../components/navbar/Navbar";
 
 export default function DetailHost() {
     const dispatch = useDispatch()
@@ -25,6 +26,9 @@ export default function DetailHost() {
     }, [dispatch])
     return (
         <div>
+           <Navbar/>
+            <h3 style={{ marginTop: "20px" }}>Thông tin chủ nhà</h3>
+
             <div className="list-frame">
                 <table class="table">
 
@@ -37,6 +41,11 @@ export default function DetailHost() {
                         <th scope="col">Trạng thái</th>
                         <th scope="col">Tong doah thu</th>
                         <th scope="col">Nhà cho thuê</th>
+                        <Link to={"/detail/host"}>
+                            <button class="btn btn-light btn-text" type="button" aria-expanded="false">
+                                Chi tiết
+                            </button>
+                        </Link>
                     </tr>
                     </thead>
                     {listUser && listUser.map((item, key) =>{
@@ -58,7 +67,7 @@ export default function DetailHost() {
                     })}
                 </table>
 
-                        <Link to={"/detail"}>
+                        <Link to={"/admin"}>
                             <Button variant="contained" startIcon={<KeyboardBackspaceIcon />}>Quay lại</Button>
                         </Link>
 

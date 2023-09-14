@@ -4,8 +4,9 @@ import {useEffect, useState} from "react";
 import customAxios from "../../services/api";
 import Box from "@mui/material/Box";
 import { useNavigate } from "react-router-dom";
+import {toast} from "react-toastify";
 
-export default function FormEditProfile() {
+export default function FormEditProfile({ handleClose }) {
     const navigate = useNavigate();
     const [profile, setProfile] = useState({
         username : "",
@@ -48,7 +49,8 @@ export default function FormEditProfile() {
         customAxios
             .put(`/users/${profile.id}`, profiles)
             .then(() => {
-                alert("Đã sửa thành công");
+                toast.success("Đã sửa thành công")
+                handleClose()
                 navigate("/");
             })
             .catch((error) => {
